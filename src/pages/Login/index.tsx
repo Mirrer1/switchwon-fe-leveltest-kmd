@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { FaWifi } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { useLoginMutation } from 'src/queries/auth';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const loginMutation = useLoginMutation();
   const [email, setEmail] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: API 연동
-    console.log(email);
+
+    try {
+      await loginMutation.mutateAsync(email);
+      navigate('/');
+    } catch {
+      alert('로그인에 실패했습니다.');
+    }
   };
 
   return (
