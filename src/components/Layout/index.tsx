@@ -1,7 +1,15 @@
 import { FaWifi } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    navigate('/login');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="border-b border-gray-200 bg-white">
@@ -29,7 +37,10 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
               >
                 환전 내역
               </Link>
-              <button className="rounded-md bg-blue-500 px-4 py-2 font-medium text-white transition-all duration-300 ease-in-out hover:bg-blue-600 hover:shadow-md active:scale-[0.98]">
+              <button
+                onClick={handleLogout}
+                className="rounded-md bg-blue-500 px-4 py-2 font-medium text-white transition-all duration-300 ease-in-out hover:bg-blue-600 hover:shadow-md active:scale-[0.98]"
+              >
                 Log out
               </button>
             </nav>
