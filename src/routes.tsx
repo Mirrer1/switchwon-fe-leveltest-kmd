@@ -1,8 +1,8 @@
-import Home from 'src/pages/Home';
+import Exchange from 'src/pages/Exchange';
 import Login from 'src/pages/Login';
 
 const routes = [
-  { path: '/', element: <Home /> },
+  { path: '/', element: <Exchange /> },
   { path: '/login', element: <Login />, layout: 'none' },
 ];
 
