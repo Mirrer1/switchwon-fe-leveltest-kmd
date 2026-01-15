@@ -3,12 +3,6 @@ import WalletCard from 'src/pages/Exchange/components/WalletCard';
 
 const Exchange = () => {
   // TODO: API 연동
-  const exchangeRates = [
-    { currency: 'USD', name: '미국 달러', rate: 1320.5, change: 0.5 },
-    { currency: 'JPY', name: '일본 엔화', rate: 9.85, change: -1.1 },
-  ];
-
-  // TODO: API 연동
   const wallets = [
     { currency: 'KRW', symbol: '₩', amount: 1200000 },
     { currency: 'USD', symbol: '$', amount: 50000 },
@@ -27,9 +21,7 @@ const Exchange = () => {
       <div className="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-6">
           <div className="grid shrink-0 grid-cols-1 gap-4 sm:grid-cols-2">
-            {exchangeRates.map(rate => (
-              <ExchangeRateCard key={rate.currency} rate={rate} />
-            ))}
+            <ExchangeRateCard />
           </div>
 
           <WalletCard wallets={wallets} totalAssets={totalAssets} />
