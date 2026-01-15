@@ -57,15 +57,14 @@
     appearance: none;
     -webkit-appearance: none;
     background: transparent;
-    border: none;
-    outline: none;
+    outline: none !important;
     font-family: inherit;
   }
 
   input:focus,
   textarea:focus,
   select:focus {
-    outline: none;
+    outline: none !important;
   }
 
   input[type='number']::-webkit-inner-spin-button,
