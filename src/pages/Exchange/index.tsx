@@ -2,15 +2,6 @@ import ExchangeRateCard from 'src/pages/Exchange/components/ExchangeRateCard';
 import WalletCard from 'src/pages/Exchange/components/WalletCard';
 
 const Exchange = () => {
-  // TODO: API 연동
-  const wallets = [
-    { currency: 'KRW', symbol: '₩', amount: 1200000 },
-    { currency: 'USD', symbol: '$', amount: 50000 },
-    { currency: 'JPY', symbol: '¥', amount: 150000 },
-  ];
-
-  const totalAssets = 3000000;
-
   return (
     <div className="flex h-full flex-col">
       <div className="mb-6 shrink-0">
@@ -24,7 +15,7 @@ const Exchange = () => {
             <ExchangeRateCard />
           </div>
 
-          <WalletCard wallets={wallets} totalAssets={totalAssets} />
+          <WalletCard />
         </div>
 
         {/* TODO: 환전하기 폼 */}
