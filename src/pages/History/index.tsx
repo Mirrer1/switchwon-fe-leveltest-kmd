@@ -47,7 +47,7 @@ const History = () => {
             </thead>
             <tbody>
               {orders?.map(order => (
-                <tr key={order.orderId} className="border-b border-gray-100">
+                <tr key={order.orderId} className="transition-colors border-b border-gray-100 hover:bg-gray-50">
                   <td className="px-10 py-3 text-sm text-gray-700">{order.orderId}</td>
                   <td className="px-10 py-3 text-sm text-gray-700">{formatDate(order.orderedAt)}</td>
                   <td className="px-10 py-3 text-sm text-gray-700">
