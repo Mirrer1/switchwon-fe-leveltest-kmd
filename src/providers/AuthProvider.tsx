@@ -5,7 +5,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const token = localStorage.getItem('accessToken');
 
-  // 로그인 페이지인데 이미 토큰 있으면 홈으로
+  // 로그인 상태에서 로그인 페이지 접근 시 홈으로 리다이렉트
   if (location.pathname === '/login') {
     if (token) {
       return <Navigate to="/" replace />;
@@ -13,7 +13,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     return <>{children}</>;
   }
 
-  // 로그인 페이지 아닌데 토큰 없으면 로그인으로
+  // 비로그인 상태에서 보호 페이지 접근 시 로그인 페이지로 리다이렉트
   if (!token) {
     return <Navigate to="/login" replace />;
   }
