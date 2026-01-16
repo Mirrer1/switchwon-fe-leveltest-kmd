@@ -15,17 +15,22 @@ const ExchangeRateCard = () => {
 
   if (isLoading) {
     return (
-      <div className="col-span-2 flex items-center justify-center rounded-lg border border-gray-200 bg-white p-12 shadow-sm">
-        <AiOutlineLoading3Quarters className="h-8 w-8 animate-spin text-blue-500" />
+      <div className="flex items-center justify-center col-span-2 p-12 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <AiOutlineLoading3Quarters className="w-8 h-8 text-blue-500 animate-spin" />
       </div>
     );
   }
 
+  const CURRENCY_ORDER = ['USD', 'JPY'];
+  const sortedRates = [...(exchangeRates || [])].sort(
+    (a, b) => CURRENCY_ORDER.indexOf(a.currency) - CURRENCY_ORDER.indexOf(b.currency),
+  );
+
   return (
     <>
-      {exchangeRates?.map(rate => (
-        <div key={rate.currency} className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <div className="mb-4 flex items-center justify-between">
+      {sortedRates?.map(rate => (
+        <div key={rate.currency} className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+          <div className="flex items-center justify-between mb-4">
             <span className="text-lg font-bold text-gray-900">{rate.currency}</span>
             <span className="text-sm text-gray-500">{getCurrencyName(rate.currency)}</span>
           </div>
