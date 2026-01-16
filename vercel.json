@@ -3,6 +3,10 @@
     {
       "source": "/api/:path*",
       "destination": "https://exchange-example.switchflow.biz/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
