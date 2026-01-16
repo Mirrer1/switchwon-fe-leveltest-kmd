@@ -11,12 +11,12 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="flex h-screen flex-col">
-      <header className="shrink-0 border-b border-gray-200 bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-4">
+    <div className="flex flex-col h-screen">
+      <header className="bg-white border-b border-gray-200 shrink-0">
+        <div className="px-4 py-4 mx-auto max-w-7xl">
           <div className="flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2">
-              <FaWifi className="h-6 w-6 text-blue-500" />
+              <FaWifi className="w-6 h-6 text-blue-500" />
               <span className="text-xl font-bold text-gray-900">Exchange app</span>
             </Link>
 
@@ -49,7 +49,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
       </header>
 
       <main className="flex-1 overflow-auto">
-        <div className="mx-auto h-full max-w-7xl px-4 py-8">{children}</div>
+        <div className="h-full px-12 py-8 mx-auto max-w-7xl">{children}</div>
       </main>
     </div>
   );

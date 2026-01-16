@@ -1,9 +1,10 @@
+import ExchangeForm from 'src/pages/Exchange/components/ExchangeForm';
 import ExchangeRateCard from 'src/pages/Exchange/components/ExchangeRateCard';
 import WalletCard from 'src/pages/Exchange/components/WalletCard';
 
 const Exchange = () => {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-col h-full">
       <div className="mb-6 shrink-0">
         <h1 className="mb-2 text-3xl font-bold text-gray-900">환율 정보</h1>
         <p className="text-base text-gray-600">실시간 환율을 확인하고 간편하게 환전하세요.</p>
@@ -11,17 +12,13 @@ const Exchange = () => {
 
       <div className="grid flex-1 grid-cols-1 gap-6 lg:grid-cols-2">
         <div className="flex flex-col gap-6">
-          <div className="grid shrink-0 grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 shrink-0 sm:grid-cols-2">
             <ExchangeRateCard />
           </div>
-
           <WalletCard />
         </div>
 
-        {/* TODO: 환전하기 폼 */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <p className="text-gray-600">환전하기 폼 영역</p>
-        </div>
+        <ExchangeForm />
       </div>
     </div>
   );
