@@ -1,76 +1,29 @@
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import { useOrdersQuery } from 'src/queries/order';
+
 const History = () => {
-  const dummyOrders = [
-    {
-      orderId: 1,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 1383.07,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 2,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 41698,
-      settledKRW: 1383.07,
-      sellAmount: 30.0,
-    },
-    {
-      orderId: 3,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 41698,
-      settledKRW: 942.56,
-      sellAmount: 30.0,
-    },
-    {
-      orderId: 4,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 942.56,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 5,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 942.56,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 6,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 1383.07,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 7,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 1609.7,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 8,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 325.5,
-      settledKRW: 1609.7,
-      sellAmount: 454734,
-    },
-    {
-      orderId: 9,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 500,
-      settledKRW: 1383.07,
-      sellAmount: 699690,
-    },
-    {
-      orderId: 10,
-      orderDate: '2025-10-05 00:00:00',
-      buyAmount: 32.5,
-      settledKRW: 1383.07,
-      sellAmount: 51976,
-    },
-  ];
+  const { data: orders, isLoading } = useOrdersQuery();
+
+  // 날짜 포맷 함수
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <AiOutlineLoading3Quarters className="w-8 h-8 text-blue-500 animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-full">
@@ -87,29 +40,23 @@ const History = () => {
               <tr className="border-b border-gray-200">
                 <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">거래 ID</th>
                 <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">거래 일시</th>
-                <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">매수 금액</th>
+                <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">출금</th>
+                <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">입금</th>
                 <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">체결 환율</th>
-                <th className="px-10 py-3 text-sm font-medium text-left text-gray-400">매도 금액</th>
               </tr>
             </thead>
             <tbody>
-              {dummyOrders.map(order => (
+              {orders?.map(order => (
                 <tr key={order.orderId} className="border-b border-gray-100">
                   <td className="px-10 py-3 text-sm text-gray-700">{order.orderId}</td>
-                  <td className="px-10 py-3 text-sm text-gray-700">{order.orderDate}</td>
+                  <td className="px-10 py-3 text-sm text-gray-700">{formatDate(order.orderedAt)}</td>
                   <td className="px-10 py-3 text-sm text-gray-700">
-                    {order.buyAmount.toLocaleString('ko-KR', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                    {order.fromAmount.toLocaleString('ko-KR')} {order.fromCurrency}
                   </td>
                   <td className="px-10 py-3 text-sm text-gray-700">
-                    {order.settledKRW.toLocaleString('ko-KR', {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
+                    {order.toAmount.toLocaleString('ko-KR')} {order.toCurrency}
                   </td>
-                  <td className="px-10 py-3 text-sm text-gray-700">{order.sellAmount.toLocaleString('ko-KR')}</td>
+                  <td className="px-10 py-3 text-sm text-gray-700">{order.appliedRate.toLocaleString('ko-KR')}</td>
                 </tr>
               ))}
             </tbody>
