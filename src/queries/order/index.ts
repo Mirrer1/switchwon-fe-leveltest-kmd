@@ -1,6 +1,7 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { createExchange, type ExchangeRequest, getOrders, getQuote, type QuoteRequest } from 'src/api/order';
 import { orderKeys } from 'src/queries/order/key';
+import { walletKeys } from 'src/queries/wallet/key';
 
 // 환전 견적 조회
 export const useQuoteQuery = (params: QuoteRequest, enabled: boolean = false) => {
@@ -13,8 +14,13 @@ export const useQuoteQuery = (params: QuoteRequest, enabled: boolean = false) =>
 
 // 환전 주문 실행
 export const useExchangeMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (data: ExchangeRequest) => createExchange(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: walletKeys.list() });
+    },
   });
 };
 

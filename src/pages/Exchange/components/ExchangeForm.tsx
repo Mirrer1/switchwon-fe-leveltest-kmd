@@ -16,7 +16,7 @@ const ExchangeForm = () => {
   const [isBuy, setIsBuy] = useState(true);
   const [amount, setAmount] = useState('');
 
-  const { data: exchangeRates } = useExchangeRatesQuery();
+  const { data: exchangeRates, refetch } = useExchangeRatesQuery();
   const exchangeMutation = useExchangeMutation();
 
   const currencies = [
@@ -53,18 +53,26 @@ const ExchangeForm = () => {
 
   // 환전하기 버튼 이벤트
   const handleExchange = async () => {
-    if (!selectedRate || !amount) return;
+    if (!amount) return;
 
     try {
+      const latestRates = await refetch();
+      const latestRate = latestRates.data?.find(rate => rate.currency === selectedCurrency);
+
+      if (!latestRate) {
+        alert('환율 정보를 불러올 수 없습니다.');
+        return;
+      }
+
       const requestData = isBuy
         ? {
-            exchangeRateId: selectedRate.exchangeRateId,
+            exchangeRateId: latestRate.exchangeRateId,
             fromCurrency: 'KRW',
             toCurrency: selectedCurrency,
             forexAmount: Number(amount),
           }
         : {
-            exchangeRateId: selectedRate.exchangeRateId,
+            exchangeRateId: latestRate.exchangeRateId,
             fromCurrency: selectedCurrency,
             toCurrency: 'KRW',
             forexAmount: Number(amount),
